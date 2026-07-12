@@ -6,7 +6,7 @@
     <title>Drawing</title>
     
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0f172a">
+    <meta name="theme-color" content="#1A1C19">
     <link rel="apple-touch-icon" href="icon-512.png">
 
     <style>
@@ -34,12 +34,12 @@
             overflow: hidden; color: var(--text-main);
         }
 
-        /* =========================================
+                /* =========================================
            LOBBY / START SCREEN STYLES
            ========================================= */
         #lobby-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 10%, #1e293b 0%, #020617 100%);
+            background: #1A1C19;
             z-index: 9999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             transition: opacity 0.5s ease, transform 0.5s ease;
@@ -94,11 +94,11 @@
         }
         .lobby-btn.primary:hover { background: #2563eb; }
 
-        /* Decorative Circles in Lobby */
+                /* Decorative Circles in Lobby */
         .bg-circle {
-            position: absolute; border-radius: 50%;
-            filter: blur(80px); opacity: 0.4; z-index: 1;
+            display: none;
         }
+       
         .c1 { width: 300px; height: 300px; background: var(--accent); top: -100px; left: -100px; }
         .c2 { width: 400px; height: 400px; background: #7c3aed; bottom: -150px; right: -150px; }
 
@@ -619,8 +619,6 @@
     </div>
 
     <div id="lobby-screen">
-        <div class="bg-circle c1"></div>
-        <div class="bg-circle c2"></div>
         
         <div class="lobby-content">
             <h1 class="lobby-title">Drawing</h1>
@@ -628,7 +626,7 @@
             
             <div class="lobby-btn-group">
                 <button id="lobby-new-btn" class="lobby-btn primary">
-                    <span>+</span> Create New Artwork
+                    <span>+</span> Create
                 </button>
                 <button id="lobby-gallery-btn" class="lobby-btn">
                     <span>🖼️</span> Open Gallery
@@ -693,7 +691,7 @@
         </div>
         
         <div class="action-group">
-            <button id="lobbyBtn" class="action-btn" title="Back to Lobby">Lobby</button>
+            <button id="lobbyBtn" class="action-btn" title="Back to Lobby">Start</button>
             <button id="saveBtn" class="action-btn">Save</button>
             <button id="viewGalleryBtn" class="action-btn">Gallery</button>
         </div>
@@ -735,7 +733,7 @@
     <div id="gallery-delete-confirm-modal" class="modal-overlay">
         <div class="confirm-box">
             <h3 style="color: var(--danger)">Delete Artwork?</h3>
-            <p>This will permanently remove this drawing from your gallery. This cannot be undone.</p>
+            <p>This will permanently remove this drawing from the gallery. This cannot be undone.</p>
             <div class="confirm-actions">
                 <button id="cancelGalleryDelete" class="btn-confirm-action btn-cancel">Cancel</button>
                 <button id="confirmGalleryDelete" class="btn-confirm-action btn-danger">Yes, Delete</button>
@@ -747,9 +745,9 @@
         <div style="display:flex; justify-content:space-between; align-items:center; color:white; width:100%;">
             <div style="display: flex; align-items: center; gap: 12px;">
                 <button id="backToLobbyFromGallery" class="gal-head-btn gal-back-btn">
-                    <span>🔙</span> Lobby
+                    <span>🔙</span> Start
                 </button>
-                <h2 style="margin:0; font-weight:300; font-size: clamp(18px, 4vw, 24px);">My Artworks</h2>
+                <h2 style="margin:0; font-weight:300; font-size: clamp(18px, 4vw, 24px);">Artwork</h2>
             </div>
             <button onclick="document.getElementById('gallery-modal').style.display='none'" class="gal-head-btn">Create Art 🎨</button>
         </div>
@@ -1300,7 +1298,7 @@
 
         const dataUrl = tempCanvas.toDataURL("image/png");
 
-        // ⭐ PWA APP KE LIYE NAYA NATIVE SAVE LOGIC ⭐
+        // ⭐ PWA APP NATIVE SAVE LOGIC ⭐
         try {
             const blob = await (await fetch(dataUrl)).blob();
             const file = new File([blob], 'Drawing' + Date.now() + '.png', { type: 'image/png' });
